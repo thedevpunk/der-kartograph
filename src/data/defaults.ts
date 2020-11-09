@@ -1,67 +1,67 @@
 import { ITile } from "../models/tile";
 import { v4 as uuidv4 } from 'uuid';
-import { EType } from "../models/type";
+import { EAreaType } from "../models/areaType";
 import { IArea } from "../models/area";
 
 export const areasData: IArea[] = [
   {
-    id: uuidv4(),
+    type: EAreaType.Empty,
     name: 'empty',
     caption: 'Leer',
     color: '#ffffff00',
     image: ''
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Water,
     name: 'water',
     caption: 'Wasser',
     color: '#4363da',
     image: 'water.svg'
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Village,
     name: 'village',
     caption: 'Dorf',
     color: '#cc2828',
     image: 'village.svg'
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Forest,
     name: 'forest',
     caption: 'Wald',
     color: '#4a9d4a',
     image: 'forest.svg'
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Fields,
     name: 'fields',
     caption: 'Acker',
     color: '#efd13e',
     image: 'fields.svg'
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Monster,
     name: 'monster',
     caption: 'Monster',
     color: '#be65d4',
     image: 'monster.svg'
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Mountains,
     name: 'mountains',
     caption: 'Gebirge',
     color: '##fffff00',
     image: 'mountains.svg'
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Ruins,
     name: 'ruins',
     caption: 'Ruinen',
     color: '#ffffff00',
     image: 'ruins.svg'
   },
   {
-    id: uuidv4(),
+    type: EAreaType.Valley,
     name: 'valley',
     caption: 'Tal',
     color: '#333333',
@@ -73,57 +73,57 @@ const predefinedAreas = [
   {
     row: 1,
     column: 3,
-    area: areasData.find(e => e.name === 'mountains')!
+    type: areasData.find(e => e.type === EAreaType.Mountains)!
   },
   {
     row: 1,
     column: 5,
-    area: areasData.find(e => e.name === 'ruins')!
+    type: areasData.find(e => e.type === EAreaType.Ruins)!
   },
   {
     row: 2,
     column: 1,
-    area: areasData.find(e => e.name === 'ruins')!
+    type: areasData.find(e => e.type === EAreaType.Ruins)!
   },
   {
     row: 2,
     column: 8,
-    area: areasData.find(e => e.name === 'mountains')!
+    type: areasData.find(e => e.type === EAreaType.Mountains)!
   },
   {
     row: 2,
     column: 9,
-    area: areasData.find(e => e.name === 'ruins')!
+    type: areasData.find(e => e.type === EAreaType.Ruins)!
   },
   {
     row: 5,
     column: 5,
-    area: areasData.find(e => e.name === 'mountains')!
+    type: areasData.find(e => e.type === EAreaType.Mountains)!
   },
   {
     row: 8,
     column: 1,
-    area: areasData.find(e => e.name === 'ruins')!
+    type: areasData.find(e => e.type === EAreaType.Ruins)!
   },
   {
     row: 8,
     column: 2,
-    area: areasData.find(e => e.name === 'mountains')!
+    type: areasData.find(e => e.type === EAreaType.Mountains)!
   },
   {
     row: 8,
     column: 9,
-    area: areasData.find(e => e.name === 'ruins')!
+    type: areasData.find(e => e.type === EAreaType.Ruins)!
   },
   {
     row: 9,
     column: 5,
-    area: areasData.find(e => e.name === 'ruins')!
+    type: areasData.find(e => e.type === EAreaType.Ruins)!
   },
   {
     row: 9,
     column: 7,
-    area: areasData.find(e => e.name === 'mountains')!
+    type: areasData.find(e => e.type === EAreaType.Mountains)!
   },
 ]
 
@@ -138,7 +138,7 @@ export const tilesData = (): ITile[][] => {
       
       tiles[i][j] = {
         id: uuidv4(),
-        area: predefined  ? predefined.area :  areasData.find(e => e.name === 'empty')!
+        area: predefined  ? predefined.type :  areasData.find(e => e.type === EAreaType.Empty)!
       }
     }
   }

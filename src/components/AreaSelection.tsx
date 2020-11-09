@@ -13,8 +13,8 @@ export const AreaSelection: React.FC<IProps> = ({ areas, selectedArea, selectAre
     <div className={styles.areaSelection}>
       {areas.map(area => (
         <button
-          key={area.id}
-          className={`${styles.areaButton} ${selectedArea && selectedArea.id === area.id ? styles.areaButtonSelected : ''}`}
+          key={area.type}
+          className={`${styles.areaButton} ${selectedArea && selectedArea.type === area.type ? styles.areaButtonSelected : ''}`}
           style={{ backgroundColor: area.color }}
           onClick={() => selectArea(area)}
         >

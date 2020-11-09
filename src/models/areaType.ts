@@ -1,4 +1,4 @@
-export enum EType {
+export enum EAreaType {
   Empty,
   Water,
   Village,
