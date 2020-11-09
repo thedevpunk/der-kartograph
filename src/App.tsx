@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import { areasData, tilesData } from './data/defaults';
 import { IArea } from './models/area';
 import { ITile } from './models/tile';
@@ -62,7 +61,7 @@ function App() {
   }
 
   return (
-    <div className={styles.main}>
+    <div className={styles.app}>
 
       <AreaSelection
         areas={areaButtons}
