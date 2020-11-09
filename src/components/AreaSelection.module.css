@@ -1,0 +1,23 @@
+.areaSelection {
+  display: flex;
+  flex-direction: row;
+}
+
+.areaButton {
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 0.25rem;
+  margin: 0.5rem;
+  filter: opacity(1);
+}
+
+.areaButton > img {
+  width: 100%;
+  height: 100%;
+}
+
+.areaButtonSelected {
+  filter: opacity(1);
+  border: 2px solid #333;
+}

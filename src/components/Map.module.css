@@ -1,0 +1,21 @@
+.map {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.tile {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid #dadada;
+}
+
+.tile > img {
+  width: calc(100% - 0.5rem);
+  height: calc(100% - 0.5rem);
+  padding: 0.25rem;
+}

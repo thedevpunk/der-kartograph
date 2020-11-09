@@ -1,0 +1,52 @@
+.roundPoints {
+  display: flex;
+  flex-direction: row;
+  /* flex-wrap: wrap; */
+  width: 10.5rem;
+  height: 5rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+}
+
+.sectionPoints {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 7rem;
+}
+
+.totalPoints {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 5rem;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+
+}
+
+.cell {
+  width: 3.5rem;
+  height: 2.5rem;
+  box-sizing: border-box;
+  padding: 0.25rem;
+  border-right: 1px solid black;
+}
+
+.cell:nth-child(-n + 2) {
+  border-bottom: 1px solid black;
+}
+
+/* .cell:nth-child(2n + 1) {
+  border-right: 1px solid black;
+} */
+
+.cell > input {
+  width: 3rem;
+  height: 2rem;
+  box-sizing: border-box;
+  border: none;
+  font-size: 1.5rem;
+}

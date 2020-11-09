@@ -1,0 +1,10 @@
+.points {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.totalPoints {
+  font-size: 1.5rem;
+}
