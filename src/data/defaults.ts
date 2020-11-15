@@ -2,6 +2,13 @@ import { ITile } from "../models/tile";
 import { v4 as uuidv4 } from 'uuid';
 import { EAreaType } from "../models/areaType";
 import { IArea } from "../models/area";
+import { create } from "domain";
+
+export const getAreaByType = (type: EAreaType): IArea | null => {
+  const area = areasData.find(area => area.type === type);
+
+  return area ? area : null;
+}
 
 export const areasData: IArea[] = [
   {
@@ -69,78 +76,27 @@ export const areasData: IArea[] = [
   }
 ];
 
-const predefinedAreas = [
-  {
-    row: 1,
-    column: 3,
-    type: areasData.find(e => e.type === EAreaType.Mountains)!
-  },
-  {
-    row: 1,
-    column: 5,
-    type: areasData.find(e => e.type === EAreaType.Ruins)!
-  },
-  {
-    row: 2,
-    column: 1,
-    type: areasData.find(e => e.type === EAreaType.Ruins)!
-  },
-  {
-    row: 2,
-    column: 8,
-    type: areasData.find(e => e.type === EAreaType.Mountains)!
-  },
-  {
-    row: 2,
-    column: 9,
-    type: areasData.find(e => e.type === EAreaType.Ruins)!
-  },
-  {
-    row: 5,
-    column: 5,
-    type: areasData.find(e => e.type === EAreaType.Mountains)!
-  },
-  {
-    row: 8,
-    column: 1,
-    type: areasData.find(e => e.type === EAreaType.Ruins)!
-  },
-  {
-    row: 8,
-    column: 2,
-    type: areasData.find(e => e.type === EAreaType.Mountains)!
-  },
-  {
-    row: 8,
-    column: 9,
-    type: areasData.find(e => e.type === EAreaType.Ruins)!
-  },
-  {
-    row: 9,
-    column: 5,
-    type: areasData.find(e => e.type === EAreaType.Ruins)!
-  },
-  {
-    row: 9,
-    column: 7,
-    type: areasData.find(e => e.type === EAreaType.Mountains)!
-  },
-]
+const createMap = (): EAreaType[] => {
+  const map = new Array<EAreaType>(121);
 
-export const tilesData = (): ITile[][] => {
-  const tiles: ITile[][] = [];
-
-  for (let i = 0; i < 11; i++) {
-    tiles[i] = [];
-
-    for (let j = 0; j < 11; j++) {
-      const predefined = predefinedAreas.find(e => e.row === i && e.column === j);
-      
-      tiles[i][j] = {
-        id: uuidv4(),
-        area: predefined  ? predefined.type :  areasData.find(e => e.type === EAreaType.Empty)!
-      }
-    }
+  for (let i = 0; i < map.length; i++) {
+    map[i] = EAreaType.Empty;
   }
-  return tiles;
+
+  map[14] = EAreaType.Mountains;
+  map[30] = EAreaType.Mountains;
+  map[60] = EAreaType.Mountains;
+  map[90] = EAreaType.Mountains;
+  map[106] = EAreaType.Mountains;
+
+  map[16] = EAreaType.Ruins;
+  map[23] = EAreaType.Ruins;
+  map[31] = EAreaType.Ruins;
+  map[89] = EAreaType.Ruins;
+  map[97] = EAreaType.Ruins;
+  map[104] = EAreaType.Ruins;
+
+  return map;
 }
+
+export const map: EAreaType[] = createMap();

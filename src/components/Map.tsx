@@ -1,27 +1,25 @@
 import React from 'react';
+import { EAreaType } from '../models/areaType';
 import { ITile } from '../models/tile';
 import styles from './Map.module.css';
+import { getAreaByType } from '../data/defaults';
 
 interface IProps {
-  tiles: ITile[][];
-  markTile: (id: string) => void;
+  tiles: EAreaType[];
+  markTile: (idx: number) => void;
 }
 
 export const Map: React.FC<IProps> = ({ tiles, markTile }) => {
   return (
     <div className={styles.map}>
-      {tiles.map(row => (
-        <div key={row.map(e => e.id).join('-')} className={styles.row}>
-          {row.map(tile => (
-            <div
-              key={tile.id}
-              className={styles.tile}
-              style={{ backgroundColor: tile.area.color }}
-              onClick={() => markTile(tile.id)}
-            >
-              {tile.area.name !== 'empty' && <img src={tile.area.image} />}
-            </div>
-          ))}
+      {tiles.map((tile, index) => (
+        <div
+          key={index}
+          className={styles.tile}
+          onClick={() => markTile(index)}
+          style={{backgroundColor: getAreaByType(tile)?.color}}
+        >
+          {tile !== EAreaType.Empty && <img src={getAreaByType(tile)!.image} />}
         </div>
       ))}
     </div>
