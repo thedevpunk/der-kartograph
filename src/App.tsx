@@ -38,7 +38,7 @@ function App() {
 
   const handleMarkTile = (idx: number) => {
 
-    if(!selectedArea) {
+    if(!selectedArea || tiles[idx] === EAreaType.Mountains) {
       return;
     }
 
