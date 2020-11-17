@@ -1,11 +1,12 @@
 .coinStrip {
   display: flex;
   flex-direction: row;
+  margin: 1rem;
 }
 
 .coin {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 1rem;
   background-color: #ffd400;
   margin: 0.25rem;

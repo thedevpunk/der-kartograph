@@ -15,7 +15,7 @@
 .tile {
   width: 4rem;
   height: 4rem;
-  border: 1px solid #dadada;
+  border: 1px dashed #e2d2c7;
   box-sizing: border-box;
 }
 

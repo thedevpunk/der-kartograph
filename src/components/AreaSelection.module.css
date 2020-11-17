@@ -1,6 +1,7 @@
 .areaSelection {
   display: flex;
   flex-direction: row;
+  margin: 1rem;
 }
 
 .areaButton {

@@ -5,15 +5,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { EPointsType } from '../models/pointsType';
 import styles from './Points.module.css';
 
-const initializePoints = (): IPoints[] => {
+const initializePoints = (firstDecree: EPointsType, secondDecree: EPointsType): IPoints[] => {
   return [
     {
       value: 0,
-      type: EPointsType.FirstDecree
+      type: firstDecree
     },
     {
       value: 0,
-      type: EPointsType.SecondDecree
+      type: secondDecree
     },
     {
       value: 0,
@@ -41,10 +41,10 @@ interface IProps {
 
 export const Points: React.FC<IProps> = ({ coins }) => {
 
-  const [pointsRoundOne, setPointsRoundOne] = useState<IPoints[]>(initializePoints);
-  const [pointsRoundTwo, setPointsRoundTwo] = useState<IPoints[]>(initializePoints);
-  const [pointsRoundThree, setPointsRoundThree] = useState<IPoints[]>(initializePoints);
-  const [pointsRoundFour, setPointsRoundFour] = useState<IPoints[]>(initializePoints);
+  const [pointsRoundOne, setPointsRoundOne] = useState<IPoints[]>(initializePoints(EPointsType.DecreeA, EPointsType.DecreeB));
+  const [pointsRoundTwo, setPointsRoundTwo] = useState<IPoints[]>(initializePoints(EPointsType.DecreeB, EPointsType.DecreeC));
+  const [pointsRoundThree, setPointsRoundThree] = useState<IPoints[]>(initializePoints(EPointsType.DecreeC, EPointsType.DecreeD));
+  const [pointsRoundFour, setPointsRoundFour] = useState<IPoints[]>(initializePoints(EPointsType.DecreeD, EPointsType.DecreeA));
   const [totalPointsRoundOne, setTotalPointsRoundOne] = useState(0);
   const [totalPointsRoundTwo, setTotalPointsRoundTwo] = useState(0);
   const [totalPointsRoundThree, setTotalPointsRoundThree] = useState(0);
@@ -89,11 +89,19 @@ export const Points: React.FC<IProps> = ({ coins }) => {
   return (
     <div className={styles.points}>
       <RoundPoints points={pointsRoundOne} totalPoints={totalPointsRoundOne} setPoints={setPointsRoundOne} />
+      <p>+</p>
       <RoundPoints points={pointsRoundTwo} totalPoints={totalPointsRoundTwo} setPoints={setPointsRoundTwo} />
+      <p>+</p>
       <RoundPoints points={pointsRoundThree} totalPoints={totalPointsRoundThree} setPoints={setPointsRoundThree} />
+      <p>+</p>
       <RoundPoints points={pointsRoundFour} totalPoints={totalPointsRoundFour} setPoints={setPointsRoundFour} />
+      <div className={styles.equal}>
+        =
+      </div>
       <div className={styles.totalPoints}>
-        = {totalPoints}
+        <p>
+          {totalPoints}
+        </p>
       </div>
     </div>
   )

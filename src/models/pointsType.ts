@@ -1,6 +1,8 @@
 export enum EPointsType {
-  FirstDecree,
-  SecondDecree,
+  DecreeA,
+  DecreeB,
+  DecreeC,
+  DecreeD,
   Coins,
   Monsters
 }
