@@ -1,8 +1,5 @@
-import { ITile } from "../models/tile";
-import { v4 as uuidv4 } from 'uuid';
 import { EAreaType } from "../models/areaType";
 import { IArea } from "../models/area";
-import { create } from "domain";
 
 export const getAreaByType = (type: EAreaType): IArea | null => {
   const area = areasData.find(area => area.type === type);

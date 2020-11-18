@@ -1,23 +1,103 @@
 import React, { useEffect, useState } from 'react';
 import { areasData, map as initialMap } from './data/defaults';
 import { IArea } from './models/area';
-import { ITile } from './models/tile';
 import styles from './App.module.css';
 import { AreaSelection } from './components/AreaSelection';
 import { Map } from './components/Map';
 import { CoinStrip } from './components/CoinStrip';
 import { Points } from './components/Points';
 import { EAreaType } from './models/areaType';
+import { IPoints } from './models/points';
+import { EPointsType } from './models/pointsType';
 
 function App() {
   const initializeAreaButtons = (): IArea[] => {
     return areasData.filter(e => e.name !== 'empty' && e.name !== 'mountains' && e.name !== 'ruins' && e.name !== 'valley');
   }
 
+  const initializePoints = (): IPoints[][] => {
+    return [
+      [
+        {
+          value: 0,
+          type: EPointsType.DecreeA
+        },
+        {
+          value: 0,
+          type: EPointsType.DecreeB
+        },
+        {
+          value: 0,
+          type: EPointsType.Coins
+        },
+        {
+          value: 0,
+          type: EPointsType.Monsters
+        }
+      ],
+      [
+        {
+          value: 0,
+          type: EPointsType.DecreeB
+        },
+        {
+          value: 0,
+          type: EPointsType.DecreeC
+        },
+        {
+          value: 0,
+          type: EPointsType.Coins
+        },
+        {
+          value: 0,
+          type: EPointsType.Monsters
+        }
+      ],
+      [
+        {
+          value: 0,
+          type: EPointsType.DecreeC
+        },
+        {
+          value: 0,
+          type: EPointsType.DecreeD
+        },
+        {
+          value: 0,
+          type: EPointsType.Coins
+        },
+        {
+          value: 0,
+          type: EPointsType.Monsters
+        }
+      ],
+      [
+        {
+          value: 0,
+          type: EPointsType.DecreeD
+        },
+        {
+          value: 0,
+          type: EPointsType.DecreeA
+        },
+        {
+          value: 0,
+          type: EPointsType.Coins
+        },
+        {
+          value: 0,
+          type: EPointsType.Monsters
+        }
+      ]
+      
+    ]
+  }
+
   const [tiles, setTiles] = useState<EAreaType[]>(initialMap);
   const [areaButtons, setAreaButtons] = useState<IArea[]>(initializeAreaButtons);
   const [selectedArea, setSelectedArea] = useState<IArea | null>(null);
   const [coins, setCoins] = useState(0);
+  const [points, setPoints] = useState<IPoints[][]>(initializePoints);
 
   useEffect(() => {
     const tilesStringFromLocalStorage = localStorage.getItem('tiles');
@@ -25,14 +105,24 @@ function App() {
 
     const coinsStringFromLocalStorage = localStorage.getItem('coins');
     coinsStringFromLocalStorage ? setCoins(parseInt(coinsStringFromLocalStorage)) : setCoins(0);
+
+    const pointsStringFromLocalStorage = localStorage.getItem('points');
+    pointsStringFromLocalStorage ? setPoints(JSON.parse(pointsStringFromLocalStorage)) : setPoints(initializePoints);
   }, [])
 
   useEffect(() => {
     localStorage.setItem('tiles', JSON.stringify(tiles));
   }, [tiles])
 
+  useEffect(() => {
+    localStorage.setItem('points', JSON.stringify(points));
+  }, [points])
+
+  useEffect(() => {
+    localStorage.setItem('coins', coins.toString());
+  }, [coins])
+
   const handleSetCoins = (value: number) => {
-    localStorage.setItem('coins', value.toString());
     setCoins(value);
   }
 
@@ -48,8 +138,28 @@ function App() {
     setTiles([...tilesTemp]);
   }
 
+  const handleSetPoints = (round: number, pointsInRound: IPoints[]) => {
+    const newPoints = points.map((roundPoints, index) => {
+      if (index === round - 1) {
+        return pointsInRound;
+      }
+      return roundPoints;
+    });
+
+    setPoints(newPoints);
+  }
+
+  const handleReset = () => {
+    localStorage.clear();
+    setTiles(initialMap);
+    setCoins(0);
+    setPoints(initializePoints);
+  }
+
   return (
     <div className={styles.app}>
+
+      <button className={styles.resetButton} onClick={handleReset}>reset</button>
 
       <AreaSelection
         areas={areaButtons}
@@ -67,7 +177,7 @@ function App() {
         setCoins={handleSetCoins}
       />
 
-      <Points coins={coins} />
+      <Points points={points} setPoints={handleSetPoints} coins={coins} />
 
     </div>
   )

@@ -1,6 +1,5 @@
 import React from 'react';
 import { EAreaType } from '../models/areaType';
-import { ITile } from '../models/tile';
 import styles from './Map.module.css';
 import { getAreaByType } from '../data/defaults';
 
