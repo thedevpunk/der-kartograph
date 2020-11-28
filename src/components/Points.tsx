@@ -27,15 +27,13 @@ export const Points: React.FC<IProps> = ({ points, setPoints, coins }) => {
   return (
     <div className={styles.points}>
       <RoundPoints round={1} points={points[0]} setPoints={setPoints} />
-      <p>+</p>
+      <div className={styles.plus}>+</div>
       <RoundPoints round={2} points={points[1]} setPoints={setPoints} />
-      <p>+</p>
+      <div className={styles.plus}>+</div>
       <RoundPoints round={3} points={points[2]} setPoints={setPoints} />
-      <p>+</p>
+      <div className={styles.plus}>+</div>
       <RoundPoints round={4} points={points[3]} setPoints={setPoints} />
-      <div className={styles.equal}>
-        =
-      </div>
+      <div className={styles.equal}>=</div>
       <div className={styles.totalPoints}>
         <p>
           {totalPoints}
