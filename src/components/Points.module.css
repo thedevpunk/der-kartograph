@@ -3,6 +3,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  margin: 0 auto;
 }
 
 .plus {
@@ -25,4 +26,27 @@
   justify-content: center;
   color: #6b3232;
   font-weight: bold;
+}
+
+@media only screen and (max-width: 420px) {
+  .points {
+    flex-direction: column;
+    position: absolute;
+    background-color: #fff;
+    height: calc(100vh - 4rem);
+    width: 11rem;
+    right: 0;
+    top: 4rem;
+    transform: translateX(calc(100% + 8px));
+    transition: all ease 0.5s;
+    box-shadow: 0 0 8px #909090;
+  }
+
+  .pointsVisible {
+    transform: translateX(0);
+  }
+
+  .equal {
+    margin: 0 0 0.5rem 0;
+  }
 }

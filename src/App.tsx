@@ -89,7 +89,7 @@ function App() {
           type: EPointsType.Monsters
         }
       ]
-      
+
     ]
   }
 
@@ -98,6 +98,7 @@ function App() {
   const [selectedArea, setSelectedArea] = useState<IArea | null>(null);
   const [coins, setCoins] = useState(0);
   const [points, setPoints] = useState<IPoints[][]>(initializePoints);
+  const [pointsVisible, setPointsVisible] = useState(false);
 
   useEffect(() => {
     const tilesStringFromLocalStorage = localStorage.getItem('tiles');
@@ -128,7 +129,7 @@ function App() {
 
   const handleMarkTile = (idx: number) => {
 
-    if(!selectedArea || tiles[idx] === EAreaType.Mountains) {
+    if (!selectedArea || tiles[idx] === EAreaType.Mountains) {
       return;
     }
 
@@ -156,10 +157,17 @@ function App() {
     setPoints(initializePoints);
   }
 
+  const handleTogglePoints = () => {
+    setPointsVisible(!pointsVisible);
+  }
+
   return (
     <div className={styles.app}>
 
-      <button className={styles.resetButton} onClick={handleReset}>reset</button>
+      <div className={styles.navigation}>
+        <button className={styles.btn} onClick={handleReset}>reset</button>
+        <button className={`${styles.btn} ${styles.btnPoints}`} onClick={handleTogglePoints}>points</button>
+      </div>
 
       <AreaSelection
         areas={areaButtons}
@@ -177,7 +185,7 @@ function App() {
         setCoins={handleSetCoins}
       />
 
-      <Points points={points} setPoints={handleSetPoints} coins={coins} />
+      <Points points={points} setPoints={handleSetPoints} coins={coins} visible={pointsVisible} />
 
     </div>
   )

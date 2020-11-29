@@ -5,7 +5,10 @@
   width: 44rem;
   height: 44rem;
   box-sizing: border-box;
+  margin: 0 auto;
 }
+
+
 
 .row {
   display: flex;
@@ -24,3 +27,19 @@
   height: calc(100% - 0.5rem);
   padding: 0.25rem; */
 }
+
+/* Mobile */
+@media only screen and (max-width: 420px) {
+  
+  .map {
+    width: 22rem;
+    height: 22rem;
+  }
+
+  .tile {
+    width: 2rem;
+    height: 2rem;
+  }
+
+}
+

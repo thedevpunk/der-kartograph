@@ -6,9 +6,10 @@ interface IProps {
   points: IPoints[][];
   setPoints: (round: number, points: IPoints[]) => void;
   coins: number;
+  visible: boolean;
 }
 
-export const Points: React.FC<IProps> = ({ points, setPoints, coins }) => {
+export const Points: React.FC<IProps> = ({ points, setPoints, coins, visible }) => {
 
   const sumPoints = (): number => {
     const sum = points.reduce((a,b) => {
@@ -25,7 +26,7 @@ export const Points: React.FC<IProps> = ({ points, setPoints, coins }) => {
   const totalPoints = sumPoints();
 
   return (
-    <div className={styles.points}>
+    <div className={`${styles.points} ${visible ? styles.pointsVisible : ''}`}>
       <RoundPoints round={1} points={points[0]} setPoints={setPoints} />
       <div className={styles.plus}>+</div>
       <RoundPoints round={2} points={points[1]} setPoints={setPoints} />
