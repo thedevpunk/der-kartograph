@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Api.Hubs;
+using Api.Repositories;
 
 namespace Api
 {
@@ -28,9 +30,23 @@ namespace Api
         {
 
             services.AddControllers();
+            services.AddSingleton<ConnectionStore>();
+            services.AddSingleton<GameRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+            });
+            services.AddSignalR();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ClientPermission", policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000")
+                        .AllowCredentials();
+                });
             });
         }
 
@@ -44,7 +60,9 @@ namespace Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+
+            app.UseCors("ClientPermission");
 
             app.UseRouting();
 
@@ -52,6 +70,7 @@ namespace Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<GamesHub>("/game");
                 endpoints.MapControllers();
             });
         }

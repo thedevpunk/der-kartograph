@@ -9,6 +9,7 @@ import { Points } from './components/Points';
 import { EAreaType } from './models/areaType';
 import { IPoints } from './models/points';
 import { EPointsType } from './models/pointsType';
+import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 
 function App() {
   const initializeAreaButtons = (): IArea[] => {
@@ -99,6 +100,8 @@ function App() {
   const [coins, setCoins] = useState(0);
   const [points, setPoints] = useState<IPoints[][]>(initializePoints);
   const [pointsVisible, setPointsVisible] = useState(false);
+  const [connection, setConnection] = useState<HubConnection | null>(null);
+  const [gameId, setGameId] = useState('');
 
   useEffect(() => {
     const tilesStringFromLocalStorage = localStorage.getItem('tiles');
@@ -110,6 +113,36 @@ function App() {
     const pointsStringFromLocalStorage = localStorage.getItem('points');
     pointsStringFromLocalStorage ? setPoints(JSON.parse(pointsStringFromLocalStorage)) : setPoints(initializePoints);
   }, [])
+
+  useEffect(() => {
+    const newConnection = new HubConnectionBuilder()
+      .withUrl('https://localhost:5001/game')
+      .withAutomaticReconnect()
+      .build();
+
+    setConnection(newConnection);
+  }, [])
+
+  useEffect(() => {
+    if (connection) {
+      connection.start()
+        .then(result => {
+          console.log('Connected with hub!');
+
+          connection.on('ReceiveGameIsCreated', game => {
+            console.log(`the game is created: ${game}`);
+          })
+
+          connection.on('ReceivePlayerHasJoined', game => {
+            console.log(`player joined to game: ${game}`);
+          })
+        })
+        .catch(error => {
+          console.log('hub conenction error: ', error);
+        })
+    }
+
+  }, [connection])
 
   useEffect(() => {
     localStorage.setItem('tiles', JSON.stringify(tiles));
@@ -157,6 +190,18 @@ function App() {
     setPoints(initializePoints);
   }
 
+  const handleCreateSession = async () => {
+    if(connection && connection.state == HubConnectionState.Connected) {
+      await connection.send('CreateGame', 'Andre');
+    }
+  }
+
+  const handleJoinSession = async () => {
+    if(connection && connection.state == HubConnectionState.Connected) {
+      await connection.send('JoinGame', gameId, 'Daniel');
+    }
+  }
+
   const handleTogglePoints = () => {
     setPointsVisible(!pointsVisible);
   }
@@ -166,7 +211,13 @@ function App() {
 
       <div className={styles.navigation}>
         <button className={styles.btn} onClick={handleReset}>reset</button>
+        <button className={styles.btn} onClick={handleCreateSession}>create</button>
+        
         <button className={`${styles.btn} ${styles.btnPoints}`} onClick={handleTogglePoints}>points</button>
+      </div>
+      <div className={styles.navigation}>
+        <input value={gameId} onChange={(event) => setGameId(event.currentTarget.value)} />
+        <button className={styles.btn} onClick={handleJoinSession}>join</button>
       </div>
 
       <AreaSelection
