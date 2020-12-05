@@ -1,0 +1,57 @@
+.main {
+  height: 4rem;
+  background-color: #6b3232;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 2;
+}
+
+.online {
+  height: 4rem;
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  width: calc(100% - 2rem);
+  background-color: #6b3232;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  transform: translateY(calc(-100%));
+  transition: all ease 0.5s;
+  box-shadow: 0 0 8px #909090;
+  z-index: 1;
+}
+
+.onlineVisible {
+  transform: translateY(0);
+}
+
+.join > input {
+  margin-right: 1rem;
+  max-width: 8rem;
+}
+
+.btn {
+  background-color: #a78167;
+  border: none;
+  color: #fff;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: opacity(0.9);
+}
+
+@media only screen and (min-width: 420px) {
+  .btnPoints {
+    display: none;
+  }
+}

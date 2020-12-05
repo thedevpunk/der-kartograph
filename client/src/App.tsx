@@ -12,6 +12,7 @@ import { EPointsType } from './models/pointsType';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faNetworkWired, faPlug, faRedo, faTrash, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { Navigation } from './components/Navigation';
 
 function App() {
   const initializeAreaButtons = (): IArea[] => {
@@ -227,18 +228,16 @@ function App() {
   return (
     <div className={styles.app}>
 
-      <div className={styles.navigation}>
-        <button className={styles.btn} onClick={handleReset}><FontAwesomeIcon icon={faRedo} /> RESET</button>
-        <button className={styles.btn} onClick={handleToggleOnline}><FontAwesomeIcon icon={faGlobe} /> ONLINE</button>
-        <button className={`${styles.btn} ${styles.btnPoints}`} onClick={handleTogglePoints}><FontAwesomeIcon icon={faTrophy} /> POINTS</button>
-      </div>
-      <div className={`${styles.online} ${onlineVisible ? styles.onlineVisible : ''}`}>
-        <div className={styles.join}>
-          <input value={gameId} onChange={(event) => setGameId(event.currentTarget.value)} />
-          <button className={styles.btn} onClick={handleJoinSession}><FontAwesomeIcon icon={faPlug} /> JOIN</button>
-        </div>
-        <button className={styles.btn} onClick={handleCreateSession}><FontAwesomeIcon icon={faNetworkWired} /> HOST</button>
-      </div>
+      <Navigation
+        gameId={gameId}
+        onlineVisible={onlineVisible}
+        setGameId={setGameId}
+        handleReset={handleReset}
+        handleToggleOnline={handleToggleOnline}
+        handleTogglePoints={handleTogglePoints}
+        handleCreateSession={handleCreateSession}
+        handleJoinSession={handleJoinSession}
+      />
 
       <AreaSelection
         areas={areaButtons}
