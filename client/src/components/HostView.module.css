@@ -1,0 +1,15 @@
+.hostView {
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  height: calc(100% - 4rem);
+  width: 100%;
+  background-color: rgb(100, 139, 100);
+  transform: translateX(-100%);
+  transition: all ease 0.5s;
+  box-shadow: 0 0 8px #909090;
+}
+
+.hostViewVisible {
+  transform: translateX(0);
+}

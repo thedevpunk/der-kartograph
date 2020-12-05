@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styles from './Navigation.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faNetworkWired, faPlug, faRedo, faTrophy } from '@fortawesome/free-solid-svg-icons';

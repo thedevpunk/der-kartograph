@@ -13,6 +13,7 @@ import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@micros
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faNetworkWired, faPlug, faRedo, faTrash, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { Navigation } from './components/Navigation';
+import { HostView } from './components/HostView';
 
 function App() {
   const initializeAreaButtons = (): IArea[] => {
@@ -106,6 +107,8 @@ function App() {
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const [gameId, setGameId] = useState('');
   const [onlineVisible, setOnlineVisible] = useState(false);
+  const [isHost, setIsHost] = useState(false);
+  const [hostViewVisible, setHostViewVisible] = useState(false);
 
   useEffect(() => {
     const tilesStringFromLocalStorage = localStorage.getItem('tiles');
@@ -206,6 +209,9 @@ function App() {
   const handleCreateSession = async () => {
     if (connection && connection.state === HubConnectionState.Connected) {
       await connection.send('CreateGame', 'Andre');
+      setIsHost(true);
+      setOnlineVisible(false);
+      setHostViewVisible(true);
     }
   }
 
@@ -222,7 +228,7 @@ function App() {
   }
 
   const handleToggleOnline = () => {
-    setOnlineVisible(!onlineVisible);
+    isHost ? setHostViewVisible(!hostViewVisible) : setOnlineVisible(!onlineVisible);
   }
 
   return (
@@ -255,7 +261,16 @@ function App() {
         setCoins={handleSetCoins}
       />
 
-      <Points points={points} setPoints={handleSetPoints} coins={coins} visible={pointsVisible} />
+      <Points
+        points={points}
+        setPoints={handleSetPoints}
+        coins={coins}
+        visible={pointsVisible}
+      />
+
+      <HostView
+        visible={hostViewVisible}
+      />
 
     </div>
   )
