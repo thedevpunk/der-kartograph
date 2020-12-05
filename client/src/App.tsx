@@ -10,6 +10,8 @@ import { EAreaType } from './models/areaType';
 import { IPoints } from './models/points';
 import { EPointsType } from './models/pointsType';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGlobe, faNetworkWired, faPlug, faRedo, faTrash, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const initializeAreaButtons = (): IArea[] => {
@@ -95,13 +97,14 @@ function App() {
   }
 
   const [tiles, setTiles] = useState<EAreaType[]>(initialMap);
-  const [areaButtons, setAreaButtons] = useState<IArea[]>(initializeAreaButtons);
+  const [areaButtons] = useState<IArea[]>(initializeAreaButtons);
   const [selectedArea, setSelectedArea] = useState<IArea | null>(null);
   const [coins, setCoins] = useState(0);
   const [points, setPoints] = useState<IPoints[][]>(initializePoints);
   const [pointsVisible, setPointsVisible] = useState(false);
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const [gameId, setGameId] = useState('');
+  const [onlineVisible, setOnlineVisible] = useState(false);
 
   useEffect(() => {
     const tilesStringFromLocalStorage = localStorage.getItem('tiles');
@@ -167,7 +170,16 @@ function App() {
     }
 
     const tilesTemp = [...tiles];
-    tilesTemp[idx] = tilesTemp[idx] == selectedArea.type ? EAreaType.Empty : selectedArea.type;
+
+    if (tilesTemp[idx] === selectedArea.type) {
+      if (initialMap[idx] === EAreaType.Ruins) {
+        tilesTemp[idx] = EAreaType.Ruins;
+      } else {
+        tilesTemp[idx] = EAreaType.Empty;
+      }
+    } else {
+      tilesTemp[idx] = selectedArea.type
+    }
 
     setTiles([...tilesTemp]);
   }
@@ -191,13 +203,15 @@ function App() {
   }
 
   const handleCreateSession = async () => {
-    if(connection && connection.state == HubConnectionState.Connected) {
+    if (connection && connection.state === HubConnectionState.Connected) {
       await connection.send('CreateGame', 'Andre');
     }
   }
 
   const handleJoinSession = async () => {
-    if(connection && connection.state == HubConnectionState.Connected) {
+    handleReset();
+
+    if (connection && connection.state === HubConnectionState.Connected) {
       await connection.send('JoinGame', gameId, 'Daniel');
     }
   }
@@ -206,18 +220,24 @@ function App() {
     setPointsVisible(!pointsVisible);
   }
 
+  const handleToggleOnline = () => {
+    setOnlineVisible(!onlineVisible);
+  }
+
   return (
     <div className={styles.app}>
 
       <div className={styles.navigation}>
-        <button className={styles.btn} onClick={handleReset}>reset</button>
-        <button className={styles.btn} onClick={handleCreateSession}>create</button>
-        
-        <button className={`${styles.btn} ${styles.btnPoints}`} onClick={handleTogglePoints}>points</button>
+        <button className={styles.btn} onClick={handleReset}><FontAwesomeIcon icon={faRedo} /> RESET</button>
+        <button className={styles.btn} onClick={handleToggleOnline}><FontAwesomeIcon icon={faGlobe} /> ONLINE</button>
+        <button className={`${styles.btn} ${styles.btnPoints}`} onClick={handleTogglePoints}><FontAwesomeIcon icon={faTrophy} /> POINTS</button>
       </div>
-      <div className={styles.navigation}>
-        <input value={gameId} onChange={(event) => setGameId(event.currentTarget.value)} />
-        <button className={styles.btn} onClick={handleJoinSession}>join</button>
+      <div className={`${styles.online} ${onlineVisible ? styles.onlineVisible : ''}`}>
+        <div className={styles.join}>
+          <input value={gameId} onChange={(event) => setGameId(event.currentTarget.value)} />
+          <button className={styles.btn} onClick={handleJoinSession}><FontAwesomeIcon icon={faPlug} /> JOIN</button>
+        </div>
+        <button className={styles.btn} onClick={handleCreateSession}><FontAwesomeIcon icon={faNetworkWired} /> HOST</button>
       </div>
 
       <AreaSelection
