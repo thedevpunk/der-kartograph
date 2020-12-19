@@ -6,9 +6,9 @@ namespace Api.Hubs
 {
     public interface IClient
     {
-        Task ReceiveGameIsCreated(string game);
+        Task ReceiveGameIsCreated(Game game);
 
-        Task ReceivePlayerHasJoined(string game);
+        Task ReceivePlayerHasJoined(Game game);
 
         Task ReceiveGameInfo(string game);
     }

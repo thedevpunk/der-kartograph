@@ -32,7 +32,7 @@ namespace Api.Hubs
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            
+
         }
 
         public async Task CreateGame(string playerId)
@@ -43,7 +43,9 @@ namespace Api.Hubs
 
             _gameRepo.AddPlayer(game.Id, playerId);
 
-            await Clients.Caller.ReceiveGameIsCreated(JsonSerializer.Serialize(game));
+            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
+            await Clients.Caller.ReceiveGameIsCreated(game);
         }
 
         public async Task JoinGame(string gameId, string playerId)
@@ -54,7 +56,7 @@ namespace Api.Hubs
 
             Game game = _gameRepo.Get(gameId);
 
-            await Clients.All.ReceivePlayerHasJoined(JsonSerializer.Serialize(game));
+            await Clients.All.ReceivePlayerHasJoined(game);
         }
 
 

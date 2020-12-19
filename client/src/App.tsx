@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faNetworkWired, faPlug, faRedo, faTrash, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { Navigation } from './components/Navigation';
 import { HostView } from './components/HostView';
+import { IGame } from './models/game';
 
 function App() {
   const initializeAreaButtons = (): IArea[] => {
@@ -109,6 +110,7 @@ function App() {
   const [onlineVisible, setOnlineVisible] = useState(false);
   const [isHost, setIsHost] = useState(false);
   const [hostViewVisible, setHostViewVisible] = useState(false);
+  const [game, setGame] = useState<IGame | null>(null);
 
   useEffect(() => {
     const tilesStringFromLocalStorage = localStorage.getItem('tiles');
@@ -136,12 +138,14 @@ function App() {
         .then(result => {
           console.log('Connected with hub!');
 
-          connection.on('ReceiveGameIsCreated', game => {
+          connection.on('ReceiveGameIsCreated', (game: IGame) => {
             console.log(`the game is created: ${game}`);
+            setGame(game);
           })
 
-          connection.on('ReceivePlayerHasJoined', game => {
+          connection.on('ReceivePlayerHasJoined', (game: IGame) => {
             console.log(`player joined to game: ${game}`);
+            setGame(game);
           })
         })
         .catch(error => {
@@ -219,7 +223,7 @@ function App() {
     handleReset();
 
     if (connection && connection.state === HubConnectionState.Connected) {
-      await connection.send('JoinGame', gameId, 'Daniel');
+      await connection.send('JoinGame', gameId, 'Arnold');
     }
   }
 
@@ -270,6 +274,7 @@ function App() {
 
       <HostView
         visible={hostViewVisible}
+        game={game}
       />
 
     </div>
