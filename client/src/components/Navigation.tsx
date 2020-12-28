@@ -28,9 +28,12 @@ export const Navigation: React.FC<IProps> = ({
     return (
         <>
             <div className={styles.main}>
-                <button className={styles.btn} onClick={handleReset}><FontAwesomeIcon icon={faRedo} /> RESET</button>
+                <button className={styles.link} onClick={handleReset}><FontAwesomeIcon icon={faRedo} /></button>
+                <button className={styles.link} onClick={handleToggleOnline}><FontAwesomeIcon icon={faGlobe} /></button>
+                <button className={`${styles.link} ${styles.btnPoints}`} onClick={handleTogglePoints}><FontAwesomeIcon icon={faTrophy} /></button>
+                {/* <button className={styles.btn} onClick={handleReset}><FontAwesomeIcon icon={faRedo} /> RESET</button>
                 <button className={styles.btn} onClick={handleToggleOnline}><FontAwesomeIcon icon={faGlobe} /> ONLINE</button>
-                <button className={`${styles.btn} ${styles.btnPoints}`} onClick={handleTogglePoints}><FontAwesomeIcon icon={faTrophy} /> POINTS</button>
+                <button className={`${styles.btn} ${styles.btnPoints}`} onClick={handleTogglePoints}><FontAwesomeIcon icon={faTrophy} /> POINTS</button> */}
             </div>
             <div className={`${styles.online} ${onlineVisible ? styles.onlineVisible : ''}`}>
                 <button className={styles.btn} onClick={handleCreateSession}><FontAwesomeIcon icon={faNetworkWired} /> HOST</button>

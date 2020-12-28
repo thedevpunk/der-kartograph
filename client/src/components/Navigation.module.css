@@ -5,7 +5,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
   z-index: 2;
 }
 
@@ -34,6 +33,24 @@
 .join > input {
   margin-right: 1rem;
   max-width: 8rem;
+}
+
+.link {
+  height: 100%;
+  background: none;
+  border: none;
+  min-width: 4rem;
+  color: #fff;
+  width: calc(100% / 3);
+}
+
+.link:hover,
+.link:active {
+  background-color: #ffffff38;
+}
+
+.link > svg {
+  font-size: 1rem;
 }
 
 .btn {
