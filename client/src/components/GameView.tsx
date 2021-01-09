@@ -8,18 +8,20 @@ interface IProps {
     gameId: string;
     visible: boolean;
     game: IGame | null;
+    isHost: boolean;
     setGameId: (gameId: string) => void;
-    handleCreateSession: () => void;
-    handleJoinSession: () => void;
+    createSession: () => void;
+    joinSession: () => void;
 }
 
 export const GameView: React.FC<IProps> = ({ 
     gameId, 
     visible, 
     game, 
+    isHost, 
     setGameId, 
-    handleCreateSession, 
-    handleJoinSession
+    createSession, 
+    joinSession
 }) => {
 
     return (
@@ -31,6 +33,10 @@ export const GameView: React.FC<IProps> = ({
                         <div className={styles.gameInfo}>
                             <h2>Game-ID: {game && game.id}</h2>
                         </div>
+
+                        {isHost && (
+                            <p><strong>You are the host!</strong></p>
+                        )}
 
                         <div className={styles.playerList}>
                             {game.players.map(player => (
@@ -47,6 +53,11 @@ export const GameView: React.FC<IProps> = ({
                             <img className={styles.card} src={`cards/${game.currentCard}.png`} />
                             <p>Es wurden bereits <strong>{game.playedCards.length}</strong> Karten gespielt.</p>
                         </div>
+
+                        <div>
+                            <button>Vorherige Karte</button>
+                            <button>Nächste Karte ziehen</button>
+                        </div>
                     </>
                 )
                 : (
@@ -54,10 +65,10 @@ export const GameView: React.FC<IProps> = ({
                         <p>Noch kein Spiel erstellt...</p>
 
                         {/* <div className={`${styles.online} ${visible ? styles.visible : ''}`}> */}
-                            <button className={styles.btn} onClick={handleCreateSession}><FontAwesomeIcon icon={faNetworkWired} /> HOST</button>
+                            <button className={styles.btn} onClick={createSession}><FontAwesomeIcon icon={faNetworkWired} /> HOST</button>
                             <div className={styles.join}>
                                 <input value={gameId} onChange={(event) => setGameId(event.currentTarget.value)} />
-                                <button className={styles.btn} onClick={handleJoinSession}><FontAwesomeIcon icon={faPlug} /> JOIN</button>
+                                <button className={styles.btn} onClick={joinSession}><FontAwesomeIcon icon={faPlug} /> JOIN</button>
                             </div>
                         {/* </div> */}
                     </>

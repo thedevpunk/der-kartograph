@@ -110,7 +110,7 @@ function App() {
   const [gameId, setGameId] = useState('');
   const [onlineVisible, setOnlineVisible] = useState(false);
   const [isHost, setIsHost] = useState(false);
-  const [hostViewVisible, setHostViewVisible] = useState(false);
+  // const [hostViewVisible, setHostViewVisible] = useState(false);
   const [game, setGame] = useState<IGame | null>(null);
 
   useEffect(() => {
@@ -215,8 +215,8 @@ function App() {
     if (connection && connection.state === HubConnectionState.Connected) {
       await connection.send('CreateGame', 'Andre');
       setIsHost(true);
-      setOnlineVisible(false);
-      setHostViewVisible(true);
+      // setOnlineVisible(false);
+      // setHostViewVisible(true);
     }
   }
 
@@ -278,9 +278,10 @@ function App() {
           gameId={gameId}
           visible={onlineVisible}
           game={game}
+          isHost={isHost}
           setGameId={setGameId}
-          handleCreateSession={handleCreateSession}
-          handleJoinSession={handleJoinSession}
+          createSession={handleCreateSession}
+          joinSession={handleJoinSession}
         />
       </div>
 
