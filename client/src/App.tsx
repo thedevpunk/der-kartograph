@@ -15,6 +15,7 @@ import { faGlobe, faNetworkWired, faPlug, faRedo, faTrash, faTrophy } from '@for
 import { Navigation } from './components/Navigation';
 import { HostView } from './components/HostView';
 import { IGame } from './models/game';
+import { GameView } from './components/GameView';
 
 function App() {
   const initializeAreaButtons = (): IArea[] => {
@@ -232,12 +233,12 @@ function App() {
   }
 
   const handleToggleOnline = () => {
-    isHost ? setHostViewVisible(!hostViewVisible) : setOnlineVisible(!onlineVisible);
+    // isHost ? setHostViewVisible(!hostViewVisible) : setOnlineVisible(!onlineVisible);
+    setOnlineVisible(!onlineVisible);
   }
 
   return (
     <div className={styles.app}>
-
       <Navigation
         gameId={gameId}
         onlineVisible={onlineVisible}
@@ -249,33 +250,40 @@ function App() {
         handleJoinSession={handleJoinSession}
       />
 
-      <AreaSelection
-        areas={areaButtons}
-        selectedArea={selectedArea}
-        selectArea={setSelectedArea}
-      />
+      <div className={styles.main}>
+        <AreaSelection
+          areas={areaButtons}
+          selectedArea={selectedArea}
+          selectArea={setSelectedArea}
+        />
 
-      <Map
-        tiles={tiles}
-        markTile={handleMarkTile}
-      />
+        <Map
+          tiles={tiles}
+          markTile={handleMarkTile}
+        />
 
-      <CoinStrip
-        coins={coins}
-        setCoins={handleSetCoins}
-      />
+        <CoinStrip
+          coins={coins}
+          setCoins={handleSetCoins}
+        />
 
-      <Points
-        points={points}
-        setPoints={handleSetPoints}
-        coins={coins}
-        visible={pointsVisible}
-      />
+        <Points
+          points={points}
+          setPoints={handleSetPoints}
+          coins={coins}
+          visible={pointsVisible}
+        />
 
-      <HostView
-        visible={hostViewVisible}
-        game={game}
-      />
+        <GameView
+          gameId={gameId}
+          visible={onlineVisible}
+          game={game}
+          setGameId={setGameId}
+          handleCreateSession={handleCreateSession}
+          handleJoinSession={handleJoinSession}
+        />
+      </div>
+
 
     </div>
   )

@@ -1,3 +1,13 @@
+.navigation {
+  height: 4rem;
+  background-color: #6b3232;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
 .main {
   height: 4rem;
   background-color: #6b3232;
@@ -67,8 +77,8 @@
   filter: opacity(0.9);
 }
 
-@media only screen and (min-width: 420px) {
+/* @media only screen and (min-width: 420px) {
   .btnPoints {
     display: none;
   }
-}
+} */

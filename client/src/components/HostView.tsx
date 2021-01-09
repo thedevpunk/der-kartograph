@@ -27,6 +27,13 @@ export const HostView: React.FC<IProps> = ({ visible, game }) => {
                                 </div>
                             ))}
                         </div>
+
+                        <div>
+                            <h2>Aktuelle Karte</h2>
+                            <p>{game.currentCard}</p>
+                            <img className={styles.card} src={`cards/${game.currentCard}.png`} />
+                            <p>Es wurden bereits <strong>{game.playedCards.length}</strong> Karten gespielt.</p>
+                        </div>
                     </>
                 )
                 : (

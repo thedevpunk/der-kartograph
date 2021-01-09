@@ -1,0 +1,27 @@
+.gameView {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% - 4rem);
+    width: 100%;
+    background-color: rgb(100, 139, 100);
+    transform: translateX(calc(-100% - 1rem));
+    transition: all ease 0.5s;
+    box-shadow: 0 0 8px #909090;
+  }
+  
+  .visible {
+    transform: translateX(0);
+  }
+  
+  .gameInfo {
+    
+  }
+  
+  .card {
+    width: calc(100% - 2rem);
+    max-width: 25rem;
+    /* border-radius: 2rem; */
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.200);
+  }
+  
