@@ -35,7 +35,7 @@ export const GameView: React.FC<IProps> = ({
                         </div>
 
                         {isHost && (
-                            <p><strong>You are the host!</strong></p>
+                            <h3>You are the host!</h3>
                         )}
 
                         <div className={styles.playerList}>
