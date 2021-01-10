@@ -1,5 +1,71 @@
 .points {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  background-color: #fff;
+  height: calc(100vh - 4rem);
+  width: 11rem;
+  right: 0;
+  top: 0;
+  transform: translateX(calc(100% + 1rem));
+  transition: all ease 0.5s;
+  box-shadow: 0 0 8px #909090;
+}
+
+.pointsVisible {
+  transform: translateX(0);
+}
+
+.plus {
+  font-weight: bold;
+}
+
+.equal {
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+}
+
+.totalPoints {
+  font-size: 1.5rem;
+  border: 2px solid #e2d2c7;
+  border-radius: 0 0 2rem 2rem;
+  height: 4rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b3232;
+  font-weight: bold;
+}
+
+/* @media only screen and (max-width: 420px) {
+  .points {
+    flex-direction: column;
+    position: absolute;
+    background-color: #fff;
+    height: calc(100vh - 4rem);
+    width: 11rem;
+    right: 0;
+    top: 4rem;
+    transform: translateX(calc(100% + 8px));
+    transition: all ease 0.5s;
+    box-shadow: 0 0 8px #909090;
+  }
+
+  .pointsVisible {
+    transform: translateX(0);
+  }
+
+  .equal {
+    margin: 0 0 0.5rem 0;
+  }
+} */
+
+/* .points {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -49,4 +115,4 @@
   .equal {
     margin: 0 0 0.5rem 0;
   }
-}
+} */

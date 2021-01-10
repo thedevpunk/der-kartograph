@@ -44,7 +44,7 @@ namespace Api
                     policy
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .WithOrigins("http://localhost:3000")
+                        .WithOrigins("http://localhost:3000", "http://192.168.178.44:3000")
                         .AllowCredentials();
                 });
             });
